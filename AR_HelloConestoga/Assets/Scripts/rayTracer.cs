@@ -8,7 +8,16 @@ public class rayTracer : MonoBehaviour
     private List<GameObject> touchList = new List<GameObject>();
     private GameObject[] touchPrev;
     private RaycastHit hit;
+    string btnName;
 
+    // Music Information
+    public AudioClip[] aClips;
+    public AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -23,8 +32,34 @@ public class rayTracer : MonoBehaviour
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction * 10000, Color.green, 10, false);
-            if(Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit))
             {
+                btnName = hit.transform.name;
+                Debug.Log("btn Name is : " + btnName);
+                switch (btnName)
+                {
+                    case "btn1":
+                        audioSource.clip = aClips[0];
+                        audioSource.Play();
+                        break;
+                    case "btn2":
+                        audioSource.clip = aClips[1];
+                        audioSource.Play();
+                        break;
+                    case "btn3":
+                        audioSource.clip = aClips[2];
+                        audioSource.Play();
+                        break;
+                    case "btn4":
+                        audioSource.clip = aClips[3];
+                        audioSource.Play();
+                        break;
+
+                    default:
+                        break;
+
+                }
+
                 GameObject recipient = hit.transform.gameObject;
                 touchList.Add(recipient);
 
