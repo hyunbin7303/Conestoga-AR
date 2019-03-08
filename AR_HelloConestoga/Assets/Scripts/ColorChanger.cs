@@ -28,6 +28,7 @@ public class ColorChanger : MonoBehaviour
     }
     public void YellowColor()
     {
+        Debug.Log("Yellow Button CLicked");
         renderer.material = BodyColorMat[2];
         CurrMat = renderer.material;
     }
