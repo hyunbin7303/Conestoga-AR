@@ -55,6 +55,8 @@ public class rayTracer : MonoBehaviour
                         audioSource.Play();
                         break;
 
+                    case "Loc_RecCentre":
+                        break;
                     default:
                         break;
 
