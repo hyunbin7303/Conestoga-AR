@@ -51,6 +51,11 @@ public class DrawlineScript : MonoBehaviour
     }
     public void lineRenderOff()
     {
+        isLineOn = false;
         lineRenderer.enabled = false;
+    }
+    public bool getLineRender()
+    {
+        return isLineOn;
     }
 }

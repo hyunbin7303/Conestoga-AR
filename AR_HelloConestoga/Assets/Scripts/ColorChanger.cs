@@ -7,12 +7,10 @@ public class ColorChanger : MonoBehaviour
     public Material[] BodyColorMat;
     Material CurrMat;
     Renderer renderer;
-    // Start is called before the first frame update
     void Start()
     {
         renderer = GetComponent<Renderer>();
     }
-    // Update is called once per frame
     void Update()
     {
     }
@@ -28,7 +26,6 @@ public class ColorChanger : MonoBehaviour
     }
     public void YellowColor()
     {
-        Debug.Log("Yellow Button CLicked");
         renderer.material = BodyColorMat[2];
         CurrMat = renderer.material;
     }
@@ -37,6 +34,10 @@ public class ColorChanger : MonoBehaviour
         renderer.material = BodyColorMat[3];
         CurrMat = renderer.material;
     }
-
+    public void OrangeColor()
+    {
+        renderer.material = BodyColorMat[4];
+        CurrMat = renderer.material;
+    }
 
 }

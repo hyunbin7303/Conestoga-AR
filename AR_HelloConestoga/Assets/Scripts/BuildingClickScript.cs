@@ -6,22 +6,17 @@ public class BuildingClickScript : MonoBehaviour
 {
     string buildingName;
     public string[] strBuildings;
-    // Update is called once per frame
 
     private List<GameObject> touchList = new List<GameObject>();
     private GameObject[] touchPrev;
     private RaycastHit hit;
     private GameObject lineObj_MainToRec;
-    private void Start()
-    {
-
-    }
     void Update()
     {
 
 #if UNITY_EDITOR
 
-        if (Input.GetMouseButton(0) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonDown(0))
         {
             touchPrev = new GameObject[touchList.Count];
             touchList.CopyTo(touchPrev);
@@ -39,22 +34,37 @@ public class BuildingClickScript : MonoBehaviour
                         if (GameObject.Find("Line_main_rec").name != null)
                         {
                             GameObject tempObj = GameObject.Find("Line_main_rec");
-                            tempObj.GetComponent<DrawlineScript>().lineRenderOn();
+                            if (tempObj.GetComponent<DrawlineScript>().getLineRender())
+                                tempObj.GetComponent<DrawlineScript>().lineRenderOff();
+                            else
+                                tempObj.GetComponent<DrawlineScript>().lineRenderOn();
                         }
                         break;
-
+                    case "MainBuilding":
+                            hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+                        break;
                     case "Loc_ATC":
                         if (GameObject.Find("Line_main_ATC").name != null)
                         {
                             GameObject tempObj = GameObject.Find("Line_main_ATC");
-                            tempObj.GetComponent<DrawlineScript>().lineRenderOn();
+                            if(tempObj.GetComponent<DrawlineScript>().getLineRender())
+                                tempObj.GetComponent<DrawlineScript>().lineRenderOff();
+                            else
+                                tempObj.GetComponent<DrawlineScript>().lineRenderOn();
                         }
                         break;
+                    case "ATC":
+                        hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                        break;
+
                     case "Loc_WelcomeCentre":
                         if (GameObject.Find("Line_main_WelcomeCentre").name != null)
                         {
                             GameObject tempObj = GameObject.Find("Line_main_WelcomeCentre");
-                            tempObj.GetComponent<DrawlineScript>().lineRenderOn();
+                            if (tempObj.GetComponent<DrawlineScript>().getLineRender())
+                                tempObj.GetComponent<DrawlineScript>().lineRenderOff();
+                            else
+                                tempObj.GetComponent<DrawlineScript>().lineRenderOn();
                         }
                         break;
                     case "Loc_WS":
@@ -65,7 +75,15 @@ public class BuildingClickScript : MonoBehaviour
                             if (GameObject.Find("Line_Awing_Woodskill").name != null)
                             {
                                 GameObject tempObj2 = GameObject.Find("Line_Awing_Woodskill");
-                                tempObj2.GetComponent<DrawlineScript>().lineRenderOn();
+                                if(tempObj2.GetComponent<DrawlineScript>().getLineRender())
+                                {
+                                    tempObj2.GetComponent<DrawlineScript>().lineRenderOff();
+                                    tempObj.GetComponent<DrawlineScript>().lineRenderOff();
+                                }
+                                else
+                                {
+                                    tempObj2.GetComponent<DrawlineScript>().lineRenderOn();
+                                }
                             }
                         }
                         break;
