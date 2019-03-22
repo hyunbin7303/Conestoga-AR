@@ -4,20 +4,17 @@ using UnityEngine;
 
 public class DrawlineScript : MonoBehaviour
 {
-
     private LineRenderer lineRenderer;
     private float counter;
     private float dist;
+    private bool isLineOn;
+    private float lineDrawSpeed = 3f;
+    private Color color = Color.red;
+    private Color c1 = Color.white;
 
     public Transform origin;
     public Transform destination;
 
-    private bool isLineOn;
-
-
-    private float lineDrawSpeed = 3f;
-    private Color color = Color.red;
-    private Color c1 = Color.white;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,10 +36,7 @@ public class DrawlineScript : MonoBehaviour
         }
         else
         {
-           
         }
-
-
     }
     public void lineRenderOn()
     {

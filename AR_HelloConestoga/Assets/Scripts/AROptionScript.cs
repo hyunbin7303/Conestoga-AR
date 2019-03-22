@@ -5,14 +5,25 @@ using UnityEngine;
 public class AROptionScript : MonoBehaviour
 {
     public GameObject gameObj;
+    public GameObject CampusMapObj;
+    public GameObject userObj;
     public void LinesClear()
     {
-        Debug.Log("Lines Clear button Clicked");
-        DrawlineScript []checks = gameObj.GetComponentsInChildren<DrawlineScript>();
-        foreach (DrawlineScript drawline in checks)
+        foreach (DrawlineScript drawline in gameObj.GetComponentsInChildren<DrawlineScript>())
         {
             drawline.lineRenderOff();
         }
+        foreach (Renderer renderer in CampusMapObj.GetComponentsInChildren<Renderer>())
+        {
+            renderer.material.color = Color.white;
+        }
     }
+
+    public void PlaceObjectsInSpot()
+    {
+        userObj.SetActive(true);
+    }
+
+   
 
 }
