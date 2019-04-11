@@ -11,10 +11,8 @@ public class DrawlineScript : MonoBehaviour
     private float lineDrawSpeed = 3f;
     private Color color = Color.red;
     private Color c1 = Color.white;
-
     public Transform origin;
     public Transform destination;
-
     // Start is called before the first frame update
     void Start()
     {

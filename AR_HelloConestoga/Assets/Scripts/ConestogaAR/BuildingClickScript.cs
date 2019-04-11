@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class BuildingClickScript : MonoBehaviour
 {
-    string buildingName;
     public TextMeshPro textMeshDescription;
     public string[] strBuildings;
-
+    private string ClickedBuiliding;
     private List<GameObject> touchList = new List<GameObject>();
     private GameObject[] touchPrev;
     private RaycastHit hit;
     private GameObject lineObj_MainToRec;
+    public GameObject mainGameObj;
     void Update()
     {
 #if UNITY_EDITOR
@@ -26,9 +26,9 @@ public class BuildingClickScript : MonoBehaviour
             Debug.DrawRay(ray.origin, ray.direction * 10000, Color.green, 10, false);
             if (Physics.Raycast(ray, out hit))
             {
-                buildingName = hit.transform.name;
-                Debug.Log("btn Name is : " + buildingName);
-                switch (buildingName)
+                ClickedBuiliding = hit.transform.name;
+                Debug.Log("Object Name is : " + ClickedBuiliding);
+                switch (ClickedBuiliding)
                 {
                     case "Loc_RecCentre":
                         if (GameObject.Find("Line_main_rec").name != null)
@@ -40,70 +40,16 @@ public class BuildingClickScript : MonoBehaviour
                                 tempObj.GetComponent<DrawlineScript>().lineRenderOn();
                         }
                         break;
-
-                    case "Rec Centre":
-                        if (hit.transform.gameObject.GetComponent<Renderer>().material.color == Color.yellow)
-                        {
-                            hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.red;
-                            break;
-                        }
-                        else if (hit.transform.gameObject.GetComponent<Renderer>().material.color == Color.red)
-                        {
-                            hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.white;
-                            break;
-                        }
-                        else
-                        {
-                            hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
-                            textMeshDescription.text = "This is the Recreation centre of the Conestoga College Campus";
-                        }
-                        break;
-
-                    case "MainBuilding":
-                            if (hit.transform.gameObject.GetComponent<Renderer>().material.color == Color.yellow)
-                            {
-                                hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.red;
-                                break;
-                            }
-                            else if(hit.transform.gameObject.GetComponent<Renderer>().material.color == Color.red)
-                            {
-                                hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.white;
-                                break;
-                            }
-                            else
-                            {
-                                hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
-                                textMeshDescription.text = "This is the main building of the Conestoga College Campus";
-                            }
-                        break;
                     case "Loc_ATC":
                         if (GameObject.Find("Line_main_ATC").name != null)
                         {
                             GameObject tempObj = GameObject.Find("Line_main_ATC");
-                            if(tempObj.GetComponent<DrawlineScript>().getLineRender())
+                            if (tempObj.GetComponent<DrawlineScript>().getLineRender())
                                 tempObj.GetComponent<DrawlineScript>().lineRenderOff();
                             else
                                 tempObj.GetComponent<DrawlineScript>().lineRenderOn();
                         }
                         break;
-                    case "ATC":
-                        if (hit.transform.gameObject.GetComponent<Renderer>().material.color == Color.yellow)
-                        {
-                            hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.red;
-                            break;
-                        }
-                        else if (hit.transform.gameObject.GetComponent<Renderer>().material.color == Color.red)
-                        {
-                            hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.white;
-                            break;
-                        }
-                        else
-                        {
-                            hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
-                            textMeshDescription.text = "This is the ATC building in conestoga college.";
-                        }
-                        break;
-
                     case "Loc_WelcomeCentre":
                         if (GameObject.Find("Line_main_WelcomeCentre").name != null)
                         {
@@ -114,32 +60,6 @@ public class BuildingClickScript : MonoBehaviour
                                 tempObj.GetComponent<DrawlineScript>().lineRenderOn();
                         }
                         break;
-                    case "WelcomeCentre":
-                        if (hit.transform.gameObject.GetComponent<Renderer>().material.color == Color.yellow)
-                        {
-                            foreach (Material mat in hit.transform.gameObject.GetComponent<Renderer>().materials)
-                            {
-                                mat.color = Color.red;
-                            }                            
-                            break;
-                        }
-                        else if (hit.transform.gameObject.GetComponent<Renderer>().material.color == Color.red)
-                        {
-                            foreach (Material mat in hit.transform.gameObject.GetComponent<Renderer>().materials)
-                            {
-                                mat.color = Color.white;
-                            }
-                            break;
-                        }
-                        else
-                        {
-                            foreach (Material mat in hit.transform.gameObject.GetComponent<Renderer>().materials)
-                            {
-                                mat.color = Color.yellow;
-                            }
-                            textMeshDescription.text = "This is the WelcomeCentre in conestoga college.";
-                        }
-                        break;
                     case "Loc_WS":
                         if (GameObject.Find("Line_main_Awing").name != null)
                         {
@@ -148,7 +68,7 @@ public class BuildingClickScript : MonoBehaviour
                             if (GameObject.Find("Line_Awing_Woodskill").name != null)
                             {
                                 GameObject tempObj2 = GameObject.Find("Line_Awing_Woodskill");
-                                if(tempObj2.GetComponent<DrawlineScript>().getLineRender())
+                                if (tempObj2.GetComponent<DrawlineScript>().getLineRender())
                                 {
                                     tempObj2.GetComponent<DrawlineScript>().lineRenderOff();
                                     tempObj.GetComponent<DrawlineScript>().lineRenderOff();
@@ -161,31 +81,33 @@ public class BuildingClickScript : MonoBehaviour
                         }
                         break;
 
-                    case "WS":
+                    default:
+
                         if (hit.transform.gameObject.GetComponent<Renderer>().material.color == Color.yellow)
                         {
-                            hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.red;
-                            break;
+                            foreach (Material mat in hit.transform.gameObject.GetComponent<Renderer>().materials)
+                                mat.color = Color.red;
                         }
                         else if (hit.transform.gameObject.GetComponent<Renderer>().material.color == Color.red)
                         {
-                            hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.white;
-                            break;
+                            foreach (Material mat in hit.transform.gameObject.GetComponent<Renderer>().materials)
+                                mat.color = Color.white;
                         }
                         else
                         {
-                            hit.transform.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
-                            textMeshDescription.text = "This is the Woodskill building in conestoga college.";
-                        }
-                        break;
+                            foreach (Material mat in hit.transform.gameObject.GetComponent<Renderer>().materials)
+                                mat.color = Color.yellow;
 
-                    default:
+                            mainGameObj.GetComponent<MainCharacterScript>().setUpTargetPoint(hit.transform);
+                            mainGameObj.GetComponent<MainCharacterScript>().isMoving = true;
+                            mainGameObj.GetComponent<MainCharacterScript>().PlayerMoving();
+                            textMeshDescription.text = hit.transform.gameObject.GetComponent<BuildingScript>().Description;
+                        }
                         break;
                 }
 
                 GameObject recipient = hit.transform.gameObject;
                 touchList.Add(recipient);
-
                 if (Input.GetMouseButtonDown(0))
                 {
                     recipient.SendMessage("touchBegan", hit.point, SendMessageOptions.DontRequireReceiver);

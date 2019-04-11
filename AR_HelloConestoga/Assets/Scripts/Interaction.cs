@@ -1,17 +1,12 @@
 ﻿// Referring to the material of the cube object as "mat".
 // Source from :https://gamedevelopment.tutsplus.com/tutorials/introduction-to-vuforia-on-unity-for-creating-augmented-reality-applications--cms-27693
 
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class Interaction : MonoBehaviour
 {
     public static Color defaultColor;
     public static Color selectedColor;
     public static Material mat;
-
     void Start()
     {
         mat = GetComponent<Renderer>().material;
@@ -27,7 +22,6 @@ public class Interaction : MonoBehaviour
         defaultColor = new Color32(255, 255, 255, 255);
         selectedColor = new Color32(255, 0, 0, 255);
         mat.color = defaultColor;
-        
     }
     // Used for calling at the instance I touched on the ebject.
     void touchBegan()

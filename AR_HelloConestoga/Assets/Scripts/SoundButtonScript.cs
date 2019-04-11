@@ -47,13 +47,10 @@ public class SoundButtonScript : MonoBehaviour
                         audioSource.clip = aClips[3];
                         audioSource.Play();
                         break;
-
                     default:
                         break;
-
                 }
             }
-
         }
         
     }
