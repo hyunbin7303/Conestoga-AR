@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+public enum Building
+{
+    ATS,
+    Woodskill,
+    Main,
+    RecreationCentre,
+    WelcomeCentre,
+    NOTFOOUND
+}
+
 public class BuildingClickScript : MonoBehaviour
 {
     public TextMeshPro textMeshDescription;
@@ -13,9 +23,15 @@ public class BuildingClickScript : MonoBehaviour
     private RaycastHit hit;
     private GameObject lineObj_MainToRec;
     public GameObject mainGameObj;
+    public GameObject optionObj;
+    private void Start()
+    {
+    }
+
+
     void Update()
     {
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -87,6 +103,8 @@ public class BuildingClickScript : MonoBehaviour
                         {
                             foreach (Material mat in hit.transform.gameObject.GetComponent<Renderer>().materials)
                                 mat.color = Color.red;
+                            optionObj.GetComponent<ButtonClickOptionScript>().SoundOnDescription(BuildValue(ClickedBuiliding));
+
                         }
                         else if (hit.transform.gameObject.GetComponent<Renderer>().material.color == Color.red)
                         {
@@ -102,6 +120,8 @@ public class BuildingClickScript : MonoBehaviour
                             mainGameObj.GetComponent<MainCharacterScript>().isMoving = true;
                             mainGameObj.GetComponent<MainCharacterScript>().PlayerMoving();
                             textMeshDescription.text = hit.transform.gameObject.GetComponent<BuildingScript>().Description;
+                            optionObj.GetComponent<ButtonClickOptionScript>().SoundOn(BuildValue(ClickedBuiliding));
+
                         }
                         break;
                 }
@@ -129,7 +149,7 @@ public class BuildingClickScript : MonoBehaviour
                 }
             }
         }
-#endif
+//#endif
         if (Input.touchCount > 0)
         {
             touchPrev = new GameObject[touchList.Count];
@@ -172,6 +192,28 @@ public class BuildingClickScript : MonoBehaviour
                     g.SendMessage("touchExit", hit.point, SendMessageOptions.DontRequireReceiver);
                 }
             }
+        }
+    }
+    private Building BuildValue(string buildingObjName)
+    {
+        switch (buildingObjName)
+        {
+            case "WS":
+                return Building.Woodskill;
+            case "MainBuilding":
+                return Building.Main;
+
+            case "WelcomeCentre":
+                return Building.WelcomeCentre;
+
+            case "Rec Centre":
+                return Building.RecreationCentre;
+
+            case "ATS":
+                return Building.ATS;
+
+            default:
+                return Building.NOTFOOUND;
         }
     }
 

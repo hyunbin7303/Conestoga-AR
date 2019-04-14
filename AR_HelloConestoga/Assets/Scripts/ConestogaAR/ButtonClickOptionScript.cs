@@ -8,7 +8,8 @@ public class ButtonClickOptionScript : MonoBehaviour
     public GameObject Mainbuilding;
     public GameObject RecreationCentrebuilding;
     public GameObject WelcomeCentrebuilding;
-    public AudioClip[] audioClips;
+    public AudioClip[] audioClips_Title;
+    public AudioClip[] audioClips_Description;
     public AudioSource audioSource;
     string btnNameStr;
     void Start()
@@ -22,8 +23,7 @@ public class ButtonClickOptionScript : MonoBehaviour
         else
         {
             ATCbuilding.GetComponent<Renderer>().material.color = Color.red;
-            audioSource.clip = audioClips[0];
-            audioSource.Play();
+            ATS_Sound();
         }
     }
     public void Woodskill()
@@ -33,8 +33,7 @@ public class ButtonClickOptionScript : MonoBehaviour
         else
         {
             WSbuilding.GetComponent<Renderer>().material.color = Color.blue;
-            audioSource.clip = audioClips[1];
-            audioSource.Play();
+            Woodskill_Sound();
         }
     }
     public void MailDoonBuilding()
@@ -42,7 +41,10 @@ public class ButtonClickOptionScript : MonoBehaviour
         if (Mainbuilding.GetComponent<Renderer>().material.color == Color.yellow)
             Mainbuilding.GetComponent<Renderer>().material.color = Color.white;
         else
+        {
             Mainbuilding.GetComponent<Renderer>().material.color = Color.yellow;
+            MainBuilding_Sound();
+        }
     }
     public void RecreationCentre()
     {
@@ -51,8 +53,7 @@ public class ButtonClickOptionScript : MonoBehaviour
         else
         {
             RecreationCentrebuilding.GetComponent<Renderer>().material.color = Color.green;
-            audioSource.clip = audioClips[2];
-            audioSource.Play();
+            RecreationCentre_Sound();
         }
     }
     public void WelcomeCentre()
@@ -66,8 +67,53 @@ public class ButtonClickOptionScript : MonoBehaviour
         {
             foreach (Material mat in WelcomeCentrebuilding.transform.gameObject.GetComponent<Renderer>().materials)
                 mat.color = Color.cyan;
-            audioSource.clip = audioClips[3];
-            audioSource.Play();
+            WlecomeCentre_Sound();
         }
+    }
+
+    public void ATS_Sound()
+    {
+        audioSource.clip = audioClips_Title[0];
+        audioSource.Play();
+    }
+    public void Woodskill_Sound()
+    {
+        audioSource.clip = audioClips_Title[1];
+        audioSource.Play();
+    }
+    public void MainBuilding_Sound()
+    {
+        audioSource.clip = audioClips_Title[2];
+        audioSource.Play();
+    }
+    public void RecreationCentre_Sound()
+    {
+        audioSource.clip = audioClips_Title[3];
+        audioSource.Play();
+    }
+    public void WlecomeCentre_Sound()
+    {
+        audioSource.clip = audioClips_Title[4];
+        audioSource.Play();
+    }
+
+    public void SoundOff()
+    {
+        // Used for turning off all sounds. 
+    }
+    public void SoundOn(Building building)
+    {
+        audioSource.clip = audioClips_Title[(int)building];
+        audioSource.Play();
+    }
+    public void SoundOnDescription(Building building)
+    {
+        audioSource.clip = audioClips_Description[(int)building];
+        audioSource.Play();
+    }
+    public void SoundWholeDescription()
+    {
+        audioSource.clip = audioClips_Title[5];
+        audioSource.Play();
     }
 }
