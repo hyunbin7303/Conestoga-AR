@@ -1,6 +1,6 @@
 # Conestoga-AR
 Conestoga AR development "HELLO WORLD" Project.                   
-Project Demo Link : https://studio.youtube.com/video/gPT5NgJzX5w/edit       
+Project Demo Link : https://www.youtube.com/watch?v=gPT5NgJzX5w     
 - [Project - Conestoga Doon Campus](#DoonCampus)
 
 
